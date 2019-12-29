@@ -10,7 +10,7 @@ Project Ideas:
  Purpose
   - This example provide a how-to template on you can seperate out current lists and new  lists in React using react-sortable-hoc
 
-![Example of Drag and Drop](//www.kurzstudio.com/drag-and-drop.gif)
+![Example of Drag and Drop](http://www.kurzstudio.com/drag-and-drop.gif)
 
 ### Installation
 
