@@ -27,8 +27,8 @@ const Sortable = () => {
         item: '',
       });
     } else {
-      let newArr = [...links]; // copying the old datas array
-      newArr[index-1] = {url: value}; // replace e.target.value with whatever you want to change it to
+      let newArr = [...links];
+      newArr[index-1] = {url: value};
       setLinks(newArr);
       setStateEdit({
         ...stateEdit,

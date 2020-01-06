@@ -17,13 +17,21 @@ const SortableNew = () => {
   const [remove, setRemove] = React.useState(true);
 
   const handleSave = (value, index) => {
-    let newArr = [...newLinks]; // copying the old datas array
-    newArr[index-1] = {url: value}; // replace e.target.value with whatever you want to change it to
-    setNewLinks(newArr);
-    setStateEdit({
-      ...stateEdit,
-      item: '',
-    });
+    if (!value) {
+      handleRemove(index);
+      setStateEdit({
+        ...stateEdit,
+        item: '',
+      });
+    } else {
+      let newArr = [...newLinks];
+      newArr[index-1] = {url: value};
+      setNewLinks(newArr);
+      setStateEdit({
+        ...stateEdit,
+        item: '',
+      });
+    }
   }
 
 
