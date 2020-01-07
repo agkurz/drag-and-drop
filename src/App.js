@@ -1,27 +1,28 @@
 import React from 'react';
-import Sortable from './components/Sortable/sortable'
+import { Button, Grid } from '@material-ui/core/';
+import Sortable from './components/Sortable/sortable';
 import SortableNew from './components/Sortable/sortableNew';
 import './App.css';
 
 function App() {
-
   const [theArray, setTheArray] = React.useState([]);
-	const addNew = () => {
-    let newArr = [...theArray];
-    newArr.unshift(<SortableNew key={Math.random()} />)
+  const addNew = () => {
+    const newArr = [...theArray];
+    newArr.unshift(<SortableNew key={Math.random()} />);
     setTheArray(newArr);
-
   };
 
   return (
-       <div className="App">
-        <h1>Drag the Links around</h1>
-        <button onClick={() => addNew()}>
-          Add List
-        </button>
+    <div className="App">
+      <h1>Drag the Links around</h1>
+      <Button variant="contained" color="primary" onClick={() => addNew()}>
+        Add List
+      </Button>
+      <Grid container spacing={3}>
         {theArray}
         <Sortable />
-      </div>
+      </Grid>
+    </div>
   );
 }
 
