@@ -3,6 +3,7 @@ import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import { Button, Grid, Paper } from '@material-ui/core/';
 import PropTypes from 'prop-types';
 import CloseIcon from '@material-ui/icons/Close';
+import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/styles';
 import arrayMove from 'array-move';
 import sortableStyles from './sortableStyles';
@@ -110,7 +111,7 @@ const Sortable = (props) => {
         >
           <Paper>
             <Button variant="contained" color="primary" className={classes.addButton} onClick={() => addNew()}>
-              + url to list
+              <AddIcon style={{ fontSize: 15 }} />
             </Button>
             <button type="submit" className="clearButton right" onClick={() => removeNew()}>
               <CloseIcon />
