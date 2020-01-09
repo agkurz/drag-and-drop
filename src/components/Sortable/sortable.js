@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import { Button, Grid, Paper } from '@material-ui/core/';
+import PropTypes from 'prop-types';
+import CloseIcon from '@material-ui/icons/Close';
+import { withStyles } from '@material-ui/styles';
 import arrayMove from 'array-move';
+import sortableStyles from './sortableStyles';
 
 import Link from './Link';
 
-const Sortable = () => {
+const Sortable = (props) => {
+  const { classes } = props;
   const [links, setLinks] = useState([
     { url: 'https://www.link1.com' },
     { url: 'https://www.link2.com' },
@@ -14,7 +19,7 @@ const Sortable = () => {
   ]);
 
   const [stateEdit, setStateEdit] = React.useState({
-    item: ''
+    item: 0
   });
 
   const [remove, setRemove] = React.useState(true);
@@ -30,7 +35,7 @@ const Sortable = () => {
       handleRemove(index);
       setStateEdit({
         ...stateEdit,
-        item: ''
+        item: 0
       });
     } else {
       const newArr = [...links];
@@ -38,7 +43,7 @@ const Sortable = () => {
       setLinks(newArr);
       setStateEdit({
         ...stateEdit,
-        item: ''
+        item: 0
       });
     }
   };
@@ -104,12 +109,12 @@ const Sortable = () => {
           onSortStart={(_, event) => event.preventDefault()}
         >
           <Paper>
-            <Button variant="contained" color="primary" onClick={() => addNew()}>
-              Add item to list
+            <Button variant="contained" color="primary" className={classes.addButton} onClick={() => addNew()}>
+              + url to list
             </Button>
-            <Button variant="contained" color="secondary" onClick={() => removeNew()}>
-              Remove list
-            </Button>
+            <button type="submit" className="clearButton right" onClick={() => removeNew()}>
+              <CloseIcon />
+            </button>
             <ul>
               {links.map((link, i) => (
                 <SortableLink
@@ -129,4 +134,14 @@ const Sortable = () => {
   );
 };
 
-export default Sortable;
+Sortable.propTypes = {
+  classes: PropTypes.shape({
+    addButton: PropTypes.string.isRequired,
+  }),
+};
+
+Sortable.defaultProps = {
+  classes: { addButton: '' }
+};
+
+export default withStyles(sortableStyles)(Sortable);

@@ -3,11 +3,16 @@
 import React, { useState } from 'react';
 import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import { Button, Grid, Paper } from '@material-ui/core/';
+import PropTypes from 'prop-types';
+import CloseIcon from '@material-ui/icons/Close';
+import { withStyles } from '@material-ui/styles';
 import arrayMove from 'array-move';
+import sortableStyles from './sortableStyles';
 
 import Link from './Link';
 
-const SortableNew = () => {
+const SortableNew = (props) => {
+  const { classes } = props;
   const [newLinks, setNewLinks] = useState([
     { url: '' },
   ]);
@@ -28,7 +33,7 @@ const SortableNew = () => {
       handleRemove(index);
       setStateEdit({
         ...stateEdit,
-        item: '',
+        item: 0,
       });
     } else {
       const newArr = [...newLinks];
@@ -36,7 +41,7 @@ const SortableNew = () => {
       setNewLinks(newArr);
       setStateEdit({
         ...stateEdit,
-        item: '',
+        item: 0,
       });
     }
   };
@@ -81,7 +86,7 @@ const SortableNew = () => {
       index={sortIndex}
       link={link}
       disabled={!!stateEdit.item}
-      editIndex={stateEdit.item}
+      editIndex={stateEdit.item || 0}
       handleQuery={handleQuery}
       handleEdit={handleEdit}
       handleQueryEnter={handleQueryEnter}
@@ -102,12 +107,12 @@ const SortableNew = () => {
             onSortStart={(_, event) => event.preventDefault()}
           >
             <Paper>
-              <Button variant="contained" color="primary" onClick={() => addNew()}>
-                Add item to list
+              <Button variant="contained" color="primary" className={classes.addButton} onClick={() => addNew()}>
+                + url to list
               </Button>
-              <Button variant="contained" color="secondary" onClick={() => removeNew()}>
-                Remove list
-              </Button>
+              <button type="submit" className="clearButton right" onClick={() => removeNew()}>
+                <CloseIcon />
+              </button>
               <ul>
                 {newLinks.map((link, i) => (
                   <SortableLink
@@ -127,4 +132,14 @@ const SortableNew = () => {
   );
 };
 
-export default SortableNew;
+SortableNew.propTypes = {
+  classes: PropTypes.shape({
+    addButton: PropTypes.string.isRequired,
+  }),
+};
+
+SortableNew.defaultProps = {
+  classes: { addButton: '' }
+};
+
+export default withStyles(sortableStyles)(SortableNew);
